@@ -1,0 +1,139 @@
+{
+  "name": "ktfmt-kotlin-formatter",
+  "displayName": "ktfmt - Kotlin Formatter",
+  "description": "Format Kotlin code with ktfmt.",
+  "version": "0.1.0",
+  "publisher": "ombratteng",
+  "license": "BSD-3-Clause",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "keywords": [
+    "kotlin",
+    "ktfmt",
+    "formatter",
+    "format"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ombratteng/vscode-ktfmt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ombratteng/vscode-ktfmt/issues"
+  },
+  "homepage": "https://github.com/ombratteng/vscode-ktfmt#readme",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:kotlin",
+    "onLanguage:kotlin-script"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "kotlin",
+        "aliases": [
+          "Kotlin"
+        ],
+        "extensions": [
+          ".kt"
+        ]
+      },
+      {
+        "id": "kotlin-script",
+        "aliases": [
+          "Kotlin Script"
+        ],
+        "extensions": [
+          ".kts"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "ktfmt.format",
+        "title": "Format with ktfmt",
+        "category": "Kotlin"
+      },
+      {
+        "command": "ktfmt.downloadJar",
+        "title": "Download/Update ktfmt JAR",
+        "category": "Kotlin"
+      },
+      {
+        "command": "ktfmt.showJarPath",
+        "title": "Show ktfmt JAR Path",
+        "category": "Kotlin"
+      }
+    ],
+    "configuration": {
+      "title": "ktfmt",
+      "properties": {
+        "ktfmt.style": {
+          "type": "string",
+          "enum": [
+            "kotlinlang",
+            "meta",
+            "google"
+          ],
+          "default": "kotlinlang",
+          "description": "ktfmt formatting style."
+        },
+        "ktfmt.javaHome": {
+          "type": "string",
+          "default": "",
+          "description": "Path to a JDK installation (JAVA_HOME). Falls back to the JAVA_HOME environment variable, then `java` on PATH."
+        },
+        "ktfmt.jarPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional override path to a ktfmt fat JAR. When set, the bundled version is not downloaded."
+        },
+        "ktfmt.extraArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra arguments passed to ktfmt."
+        },
+        "ktfmt.maxWidth": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "description": "Override the maximum line width."
+        },
+        "ktfmt.removeUnusedImports": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove unused imports during formatting. When disabled, passes `--do-not-remove-unused-imports` to ktfmt."
+        },
+        "ktfmt.enableEditorConfig": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable .editorconfig overrides for supported formatting options (limited). Passes `--enable-editorconfig` to ktfmt."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run build",
+    "build": "node esbuild.mjs --production",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "vsce package --no-dependencies",
+    "publish:vsce": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/vscode": "^1.101.0",
+    "@vscode/vsce": "^3.9.1",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "pnpm@10.33.3"
+}
